@@ -33,4 +33,14 @@ public class Block
     {
         meshMaterial.color = Color.red;
     }
+
+    public void SetClickTimer(float t)
+    {
+        meshMaterial.color = Color.Lerp(Color.red, Color.green, t);
+    }
+
+    public void Pop()
+    {
+        Destroy(gameObject);
+    }
 }

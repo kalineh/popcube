@@ -5,8 +5,12 @@ using UnityEngine;
 public class ControllerMouse
     : MonoBehaviour
 {
+    [Range(0.01f, 5.0f)]
+    public float ClickSpeed;
+
     private Block hover;
     private Block click;
+    private float clickTimer;
 
     public void OnEnable()
     {
@@ -74,6 +78,8 @@ public class ControllerMouse
 
                     click = hover;
                     click.OnClickOn();
+
+                    clickTimer = 0.0f;
                 }
             }
 
@@ -94,6 +100,20 @@ public class ControllerMouse
             click = null;
 
             hover.OnHoverOn();
+
+            return;
+        }
+
+        clickTimer += Time.deltaTime * ClickSpeed;
+        click.SetClickTimer(clickTimer);
+
+        if (clickTimer >= 1.0f)
+        {
+            click.Pop();
+            click = null;
+            clickTimer = 0.0f;
+            hover = null;
+            return;
         }
     }
 
