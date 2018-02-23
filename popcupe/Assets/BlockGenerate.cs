@@ -74,6 +74,6 @@ public class BlockGenerate
 
     public void Update()
     {
-        transform.Rotate(Vector3.up, 4.0f * Time.deltaTime, Space.World);
+        transform.Rotate(Vector3.up, 2.0f * Time.deltaTime, Space.World);
     }
 }

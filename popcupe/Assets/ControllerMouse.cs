@@ -22,7 +22,7 @@ public class ControllerMouse
         var cam = Camera.main;
         var pos = Input.mousePosition;
         var ray = cam.ScreenPointToRay(pos);
-        var mask = LayerMask.GetMask("Default");
+        var mask = LayerMask.GetMask("Block");
 
         var info = new RaycastHit();
         var hit = Physics.Raycast(ray, out info, float.MaxValue, mask, QueryTriggerInteraction.Collide);
