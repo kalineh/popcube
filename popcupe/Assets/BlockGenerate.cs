@@ -35,6 +35,7 @@ public class BlockGenerate
 
     public void OnEnable()
     {
+        Cleanup();
         Generate();
     }
 
@@ -48,9 +49,9 @@ public class BlockGenerate
                 {
                     var obj = GameObject.Instantiate(prefabBlock, transform);
                     var pos = new Vector3(
-                        dimX * spacing * 1.0f / dimX * x + dimX * spacing * -0.5f,
-                        dimY * spacing * 1.0f / dimY * y + dimY * spacing * -0.5f,
-                        dimZ * spacing * 1.0f / dimZ * z + dimZ * spacing * -0.5f
+                        dimX * spacing * 1.0f / dimX * x + dimX * spacing * -0.5f + spacing * 0.5f,
+                        dimY * spacing * 1.0f / dimY * y + dimY * spacing * -0.5f + spacing * 0.5f,
+                        dimZ * spacing * 1.0f / dimZ * z + dimZ * spacing * -0.5f + spacing * 0.5f
                     );
 
                     obj.transform.localPosition = pos;
@@ -69,5 +70,10 @@ public class BlockGenerate
     {
         while (transform.childCount > 0)
             DestroyImmediate(transform.GetChild(0).gameObject);
+    }
+
+    public void Update()
+    {
+        transform.Rotate(Vector3.up, 4.0f * Time.deltaTime, Space.World);
     }
 }

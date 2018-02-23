@@ -6,41 +6,47 @@ public class Block
     : MonoBehaviour
 {
     private Renderer meshRenderer;
-    private Material meshMaterial;
+    private MaterialPropertyBlock meshMaterialProperty;
 
     public void OnEnable()
     {
         meshRenderer = GetComponentInChildren<Renderer>();
-        meshMaterial = meshRenderer.material;
+        meshMaterialProperty = new MaterialPropertyBlock();
     }
 
     public void OnHoverOff()
     {
-        meshMaterial.color = Color.white;
+        SetColor(Color.white);
     }
 
     public void OnHoverOn()
     {
-        meshMaterial.color = Color.cyan;
+        SetColor(Color.cyan);
     }
 
     public void OnClickOff()
     {
-        meshMaterial.color = Color.white;
+        SetColor(Color.white);
     }
 
     public void OnClickOn()
     {
-        meshMaterial.color = Color.red;
+        SetColor(Color.red);
     }
 
     public void SetClickTimer(float t)
     {
-        meshMaterial.color = Color.Lerp(Color.red, Color.green, t);
+        SetColor(Color.Lerp(Color.red, Color.green, t));
     }
 
     public void Pop()
     {
         Destroy(gameObject);
+    }
+
+    private void SetColor(Color color)
+    {
+        meshMaterialProperty.SetColor("_Color", color);
+        meshRenderer.SetPropertyBlock(meshMaterialProperty);
     }
 }
